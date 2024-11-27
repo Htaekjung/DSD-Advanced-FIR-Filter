@@ -116,10 +116,10 @@ module ReConf_FirFilter_tb;
 initial begin
     coeff[0]  = 16'h0003;
     coeff[1]  = 16'h0000;
-    coeff[2]  = 16'h0065;
-    coeff[3]  = 16'h006E;
+    coeff[2]  = 16'h0006;
+    coeff[3]  = 16'h0007;
     coeff[4]  = 16'h0000;
-    coeff[5]  = 16'h03F2;
+    coeff[5]  = 16'h000B;
     coeff[6]  = 16'h000D;
     coeff[7]  = 16'h0000;
     coeff[8]  = 16'h0013;
@@ -143,11 +143,11 @@ initial begin
     coeff[24] = 16'h0013;
     coeff[25] = 16'h0000;
     coeff[26] = 16'h000D;
-    coeff[27] = 16'h03F2;
+    coeff[27] = 16'h000B;
     coeff[28] = 16'h0000;
-    coeff[29] = 16'h006E;
+    coeff[29] = 16'h0007;
 
-    coeff[30] = 16'h0065;
+    coeff[30] = 16'h0006;
     coeff[31] = 16'h0000;
     coeff[32] = 16'h0003;
 end
