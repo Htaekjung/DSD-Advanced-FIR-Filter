@@ -26,7 +26,7 @@ module SpSram_10x16(
   integer          i;
 
   // wire & reg declaration
-  reg  [15:0]      rMem[1:10];          // 10*16 array
+  reg  [15:0]      rMem[0:9];          // 10*16 array
   reg  [15:0]      rRdDt;
 
   /*************************************************************/
@@ -38,7 +38,7 @@ module SpSram_10x16(
     // Synchronous & low reset
     if (!iRsn)
     begin
-      for (i=1 ; i<=10 ; i=i+1)
+      for (i=0 ; i<10 ; i=i+1)
       begin
         rMem[i] <= 16'h0;
       end

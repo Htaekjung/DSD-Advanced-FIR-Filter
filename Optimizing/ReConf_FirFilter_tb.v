@@ -113,44 +113,46 @@ module ReConf_FirFilter_tb;
   reg [15:0] coeff [0:32]; // Coefficient array for all ranges
   reg [5:0] index;
 
-initial begin
-    coeff[0]  = 16'h0003;
-    coeff[1]  = 16'h0000;
-    coeff[2]  = 16'h0065;
-    coeff[3]  = 16'h006E;
-    coeff[4]  = 16'h0000;
-    coeff[5]  = 16'h03F2;
-    coeff[6]  = 16'h000D;
-    coeff[7]  = 16'h0000;
-    coeff[8]  = 16'h0013;
-    coeff[9]  = 16'h0018;
+  initial begin
+    coeff[0]  = 16'h0100; // Example coefficient values for SpSram1
+    coeff[1]  = 16'h0200;
+    coeff[2]  = 16'h0300;
+    coeff[3]  = 16'h0400;
+    coeff[4]  = 16'h0500;
+    coeff[5]  = 16'h0600;
+    coeff[6]  = 16'h0700;
+    coeff[7]  = 16'h0800;
+    coeff[8]  = 16'h0900;
+    coeff[9]  = 16'h0A00;
 
-    coeff[10] = 16'h0000;
-    coeff[11] = 16'h0025;
-    coeff[12] = 16'h0030;
-    coeff[13] = 16'h0000;
-    coeff[14] = 16'h0066;
-    coeff[15] = 16'h00CE;
-    coeff[16] = 16'h01F4;
-    coeff[17] = 16'h00CE;
-    coeff[18] = 16'h0066;
-    coeff[19] = 16'h0000;
+    coeff[10] = 16'h1100; // Example coefficient values for SpSram2
+    coeff[11] = 16'h1200;
+    coeff[12] = 16'h1300;
+    coeff[13] = 16'h1400;
+    coeff[14] = 16'h1500;
+    coeff[15] = 16'h1600;
+    coeff[16] = 16'h1700;
+    coeff[17] = 16'h1800;
+    coeff[18] = 16'h1900;
+    coeff[19] = 16'h1A00;
 
-    coeff[20] = 16'h0030;
-    coeff[21] = 16'h0025;
-    coeff[22] = 16'h0000;
-    coeff[23] = 16'h0018;
-    coeff[24] = 16'h0013;
-    coeff[25] = 16'h0000;
-    coeff[26] = 16'h000D;
-    coeff[27] = 16'h03F2;
-    coeff[28] = 16'h0000;
-    coeff[29] = 16'h006E;
+    coeff[20] = 16'h2100; // Example coefficient values for SpSram3
+    coeff[21] = 16'h2200;
+    coeff[22] = 16'h2300;
+    coeff[23] = 16'h2400;
+    coeff[24] = 16'h2500;
+    coeff[25] = 16'h2600;
+    coeff[26] = 16'h2700;
+    coeff[27] = 16'h2800;
+    coeff[28] = 16'h2900;
+    coeff[29] = 16'h2A00;
 
-    coeff[30] = 16'h0065;
-    coeff[31] = 16'h0000;
-    coeff[32] = 16'h0003;
-end
+    coeff[30] = 16'h3100; // Example coefficient values for SpSram4
+    coeff[31] = 16'h3200;
+    coeff[32] = 16'h3300;
+
+  end
+
   integer i, j, k; // 'integer'는 올바르게 선언됨
 
   /**********************************/
