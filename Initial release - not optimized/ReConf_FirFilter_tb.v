@@ -133,7 +133,7 @@ initial begin
     coeff[15] = 16'h00CE;
     coeff[16] = 16'h01F4;
     coeff[17] = 16'h00CE;
-    coeff[18] = 16'h0066;
+    coeff[18] = -16'h0066;
     coeff[19] = 16'h0000;
 
     coeff[20] = 16'h0030;
