@@ -12,16 +12,17 @@ module Controller(
     input iCsnRam,
     input iWrnRam,
     input iCoeffiUpdateFlag,
-    input [3:0] iAddrRam,
+    input [3:0] iAddrRam_neg,
+    input [3:0] iAddrRam_pos,
     input signed [15:0] iWrDtRam,
     input [5:0] iNumOfCoeff,
-    output [3:0] oEnMul1, oEnMul2, oEnMul3, oEnMul4, // Selection 용도
-    output oEnAdd1, oEnAdd2, oEnAdd3, oEnAdd4,
-    output oEnAcc1, oEnAcc2, oEnAcc3, oEnAcc4,
-    output oCsnRam1, oCsnRam2, oCsnRam3, oCsnRam4,
-    output oWrnRam1, oWrnRam2, oWrnRam3, oWrnRam4,
-    output signed [15:0] oWrDtRam1, oWrDtRam2, oWrDtRam3, oWrDtRam4,
-    output [3:0] oAddrRam1, oAddrRam2, oAddrRam3, oAddrRam4,
+    output [3:0] oEnMul1, oEnMul2, // Selection_pos 용도
+    output oEnAdd1, oEnAdd2,
+    output oEnAcc1, oEnAcc2,
+    output oCsnRam1, oCsnRam2,
+    output oWrnRam1, oWrnRam2,
+    output signed [15:0] oWrDtRam1, oWrDtRam2,
+    output [3:0] oAddrRam_neg, oAddrRam_pos,
     output oEnDelay
 );
     parameter p_Idle = 3'b000,
@@ -31,7 +32,8 @@ module Controller(
 
     reg [2:0] rCurState;
     reg [2:0] rNxtState;
-    reg [3:0] Selection;
+    reg [3:0] Selection_pos;
+    reg [3:0] Selection_neg;
     reg rEnAddDelay;
     reg rEnAccDelay;
 
@@ -63,51 +65,52 @@ module Controller(
             end else begin
                 rNxtState <= p_Sum;   // 나머지 경우는 p_Sum 상태 유지
             end
-
-
             default:
                 rNxtState <= p_Idle;
         endcase
     end
 
     // Control signals
-    assign oCsnRam1 = ((rCurState == p_SpSram && iNumOfCoeff >= 16'd0 && iNumOfCoeff <= 16'd9) || rCurState == p_Acc) ? 1'b0 : 1'b1;
-    assign oCsnRam2 = ((rCurState == p_SpSram && iNumOfCoeff >= 16'd10 && iNumOfCoeff <= 16'd19) || rCurState == p_Acc) ? 1'b0 : 1'b1;
-    assign oCsnRam3 = ((rCurState == p_SpSram && iNumOfCoeff >= 16'd20 && iNumOfCoeff <= 16'd29) || rCurState == p_Acc) ? 1'b0 : 1'b1;
-    assign oCsnRam4 = ((rCurState == p_SpSram && iNumOfCoeff >= 16'd30 && iNumOfCoeff <= 16'd39) || rCurState == p_Acc) ? 1'b0 : 1'b1;
+    assign oCsnRam1 = ((rCurState == p_SpSram && (iNumOfCoeff  == 1 || iNumOfCoeff  == 3 || iNumOfCoeff  == 5 || iNumOfCoeff  == 7 || iNumOfCoeff  == 9 || iNumOfCoeff  == 11 || iNumOfCoeff  == 12 )) || rCurState == p_Acc) ? 1'b0 : 1'b1;
+    assign oCsnRam2 = ((rCurState == p_SpSram && (iNumOfCoeff  == 2 || iNumOfCoeff  == 4 || iNumOfCoeff  == 6 || iNumOfCoeff  == 8 || iNumOfCoeff  == 10)) || rCurState == p_Acc) ? 1'b0 : 1'b1;
 
-    assign oWrnRam1 = (rCurState == p_SpSram && iNumOfCoeff >= 16'd0 && iNumOfCoeff <= 16'd9) ? 1'b0 : 1'b1;
-    assign oWrnRam2 = (rCurState == p_SpSram && iNumOfCoeff >= 16'd10 && iNumOfCoeff <= 16'd19) ? 1'b0 : 1'b1;
-    assign oWrnRam3 = (rCurState == p_SpSram && iNumOfCoeff >= 16'd20 && iNumOfCoeff <= 16'd29) ? 1'b0 : 1'b1;
-    assign oWrnRam4 = (rCurState == p_SpSram && iNumOfCoeff >= 16'd30 && iNumOfCoeff <= 16'd39) ? 1'b0 : 1'b1;
+    assign oWrnRam1 = (rCurState == p_SpSram && (iNumOfCoeff  == 1 || iNumOfCoeff  == 3 || iNumOfCoeff  == 5 || iNumOfCoeff  == 7 || iNumOfCoeff  == 9 || iNumOfCoeff  == 11 || iNumOfCoeff  == 12 )) ? 1'b0 : 1'b1;
+    assign oWrnRam2 = (rCurState == p_SpSram && (iNumOfCoeff  == 2 || iNumOfCoeff  == 4 || iNumOfCoeff  == 6 || iNumOfCoeff  == 8 || iNumOfCoeff  == 10)) ? 1'b0 : 1'b1;
 
-    assign oAddrRam1 = ((rCurState == p_SpSram && iNumOfCoeff >= 16'd0 && iNumOfCoeff <= 16'd9)  || rCurState == p_Acc) ? iAddrRam [3:0] : 4'b0000;
-    assign oAddrRam2 = ((rCurState == p_SpSram && iNumOfCoeff >= 16'd10 && iNumOfCoeff <= 16'd19) || rCurState == p_Acc) ? iAddrRam[3:0] : 4'b0000;
-    assign oAddrRam3 = ((rCurState == p_SpSram && iNumOfCoeff >= 16'd20 && iNumOfCoeff <= 16'd29) || rCurState == p_Acc) ? iAddrRam[3:0] : 4'b0000;
-    assign oAddrRam4 = ((rCurState == p_SpSram && iNumOfCoeff >= 16'd30 && iNumOfCoeff <= 16'd39) || rCurState == p_Acc) ? iAddrRam[3:0] : 4'b0000;
+    assign oAddrRam_pos = ((rCurState == p_SpSram && (iNumOfCoeff  == 1 || iNumOfCoeff  == 3 || iNumOfCoeff  == 5 || iNumOfCoeff  == 7 || iNumOfCoeff  == 9 || iNumOfCoeff  == 11 || iNumOfCoeff  == 12 ))  || rCurState == p_Acc) ? iAddrRam_pos [3:0] : 4'b0000;
+    assign oAddrRam_neg = ((rCurState == p_SpSram && (iNumOfCoeff  == 2 || iNumOfCoeff  == 4 || iNumOfCoeff  == 6 || iNumOfCoeff  == 8 || iNumOfCoeff  == 10)) || rCurState == p_Acc) ? iAddrRam_neg[3:0] : 4'b0000;
 
-    assign oWrDtRam1 = (rCurState == p_SpSram && iNumOfCoeff >= 16'd0 && iNumOfCoeff <= 16'd9) ? iWrDtRam : 16'b0;
-    assign oWrDtRam2 = (rCurState == p_SpSram && iNumOfCoeff >= 16'd10 && iNumOfCoeff <= 16'd19) ? iWrDtRam : 16'b0;
-    assign oWrDtRam3 = (rCurState == p_SpSram && iNumOfCoeff >= 16'd20 && iNumOfCoeff <= 16'd29) ? iWrDtRam : 16'b0;
-    assign oWrDtRam4 = (rCurState == p_SpSram && iNumOfCoeff >= 16'd30 && iNumOfCoeff <= 16'd39) ? iWrDtRam : 16'b0;
+    assign oWrDtRam1 = (rCurState == p_SpSram && (iNumOfCoeff  == 1 || iNumOfCoeff  == 3 || iNumOfCoeff  == 5 || iNumOfCoeff  == 7 || iNumOfCoeff  == 9 || iNumOfCoeff  == 11 || iNumOfCoeff  == 12 )) ? iWrDtRam : 16'b0;
+    assign oWrDtRam2 = (rCurState == p_SpSram && (iNumOfCoeff  == 2 || iNumOfCoeff  == 4 || iNumOfCoeff  == 6 || iNumOfCoeff  == 8 || iNumOfCoeff  == 10)) ? iWrDtRam : 16'b0;
 
     // Enable delay signal
     assign oEnDelay = (rCurState == p_Idle || rCurState == p_SpSram) ? 1'b0 : 1'b1;
 
-    // Selection logic
+    // Selection_pos logic
     always @(posedge iClk_12M) begin
         if (!iRsn) begin
-            Selection <= 4'd0; // Reset 시 Selection 초기화
+            Selection_pos <= 4'd0; // Reset 시 Selection 초기화
         end else if (rCurState == p_Acc) begin
-            if (Selection == 4'd10) 
-                Selection <= 4'd0; // 9에서 다시 0으로 초기화
+            if (Selection_pos == 4'd9) 
+                Selection_pos <= 4'd0; // 9에서 다시 0으로 초기화
             else 
-                Selection <= Selection + 1'b1; // 0~9까지 순차적으로 증가
+                Selection_pos <= Selection_pos + 1'b1; // 0~9까지 순차적으로 증가
         end else begin
-            Selection <= 4'd0; // 다른 상태에서는 초기화
+            Selection_pos <= 4'd0; // 다른 상태에서는 초기화
         end
     end
-
+    always @(posedge iClk_12M) begin
+        if (!iRsn) begin
+            Selection_neg <= 4'd0; // Reset 시 Selection 초기화
+        end else if (rCurState == p_Acc) begin
+            if (Selection_neg == 4'd8) 
+                Selection_neg <= 4'd0; // 9에서 다시 0으로 초기화
+            else 
+                Selection_neg <= Selection_neg + 1'b1; // 0~9까지 순차적으로 증가
+        end else begin
+            Selection_neg <= 4'd0; // 다른 상태에서는 초기화
+        end
+    end
     // Control signal for Add and Accumulator delay
 always @(posedge iClk_12M) begin
     if (!iRsn) begin
@@ -126,18 +129,10 @@ end
     // Output enable signals for Adders, Accumulators, and Multipliers
     assign oEnAdd1 = rEnAddDelay;
     assign oEnAcc1 = rEnAccDelay;
-    assign oEnMul1 = (rCurState == p_Acc) ? Selection : 4'b0000;
+    assign oEnMul1 = (rCurState == p_Acc) ? Selection_pos : 4'b0000;
 
     assign oEnAdd2 = rEnAddDelay;
     assign oEnAcc2 = rEnAccDelay;
-    assign oEnMul2 = (rCurState == p_Acc) ? Selection : 4'b0000;
-
-    assign oEnAdd3 = rEnAddDelay;
-    assign oEnAcc3 = rEnAccDelay;
-    assign oEnMul3 = (rCurState == p_Acc) ? Selection : 4'b0000;
-
-    assign oEnAdd4 = rEnAddDelay;
-    assign oEnAcc4 = rEnAccDelay;
-    assign oEnMul4 = (rCurState == p_Acc) ? Selection : 4'b0000;
+    assign oEnMul2 = (rCurState == p_Acc) ? Selection_neg : 4'b0000;
 
 endmodule

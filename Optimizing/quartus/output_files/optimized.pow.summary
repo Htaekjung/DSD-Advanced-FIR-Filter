@@ -1,0 +1,12 @@
+Power Analyzer Status : Successful - Fri Nov 29 10:24:22 2024
+Quartus Prime Version : 23.1std.1 Build 993 05/14/2024 SC Lite Edition
+Revision Name : optimized
+Top-level Entity Name : ReConf_FirFilter
+Family : Cyclone V
+Device : 5CGXFC7C7F23C8
+Power Models : Final
+Total Thermal Power Dissipation : 356.95 mW
+Core Dynamic Thermal Power Dissipation : 0.00 mW
+Core Static Thermal Power Dissipation : 349.47 mW
+I/O Thermal Power Dissipation : 7.48 mW
+Power Estimation Confidence : Low: user provided insufficient toggle rate data

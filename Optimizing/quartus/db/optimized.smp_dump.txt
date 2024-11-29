@@ -1,0 +1,7 @@
+
+State Machine - |ReConf_FirFilter|Controller:Controller|rCurState
+Name rCurState.p_Sum rCurState.p_Acc rCurState.p_SpSram rCurState.p_Idle 
+rCurState.p_Idle 0 0 0 0 
+rCurState.p_SpSram 0 0 1 1 
+rCurState.p_Acc 0 1 0 1 
+rCurState.p_Sum 1 0 0 1 

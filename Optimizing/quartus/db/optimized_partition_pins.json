@@ -1,0 +1,221 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "oFirOut[0]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[1]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[2]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[3]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[4]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[5]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[6]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[7]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[8]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[9]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[10]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[11]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[12]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[13]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[14]",
+					"strict" : false
+				},
+				{
+					"name" : "oFirOut[15]",
+					"strict" : false
+				},
+				{
+					"name" : "iClk_12M",
+					"strict" : false
+				},
+				{
+					"name" : "iRsn",
+					"strict" : false
+				},
+				{
+					"name" : "iEnSample_600k",
+					"strict" : false
+				},
+				{
+					"name" : "iCsnRam",
+					"strict" : false
+				},
+				{
+					"name" : "iCoeffiUpdateFlag",
+					"strict" : false
+				},
+				{
+					"name" : "iWrnRam",
+					"strict" : false
+				},
+				{
+					"name" : "iAddrRam_pos[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iNumOfCoeff[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iNumOfCoeff[1]",
+					"strict" : false
+				},
+				{
+					"name" : "iNumOfCoeff[2]",
+					"strict" : false
+				},
+				{
+					"name" : "iNumOfCoeff[3]",
+					"strict" : false
+				},
+				{
+					"name" : "iNumOfCoeff[4]",
+					"strict" : false
+				},
+				{
+					"name" : "iNumOfCoeff[5]",
+					"strict" : false
+				},
+				{
+					"name" : "iAddrRam_pos[1]",
+					"strict" : false
+				},
+				{
+					"name" : "iAddrRam_pos[2]",
+					"strict" : false
+				},
+				{
+					"name" : "iFirIn[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iFirIn[1]",
+					"strict" : false
+				},
+				{
+					"name" : "iFirIn[2]",
+					"strict" : false
+				},
+				{
+					"name" : "iAddrRam_neg[2]",
+					"strict" : false
+				},
+				{
+					"name" : "iAddrRam_neg[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iAddrRam_neg[1]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[0]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[1]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[2]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[3]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[4]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[5]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[6]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[7]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[8]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[9]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[10]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[11]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[12]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[13]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[14]",
+					"strict" : false
+				},
+				{
+					"name" : "iWrDtRam[15]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

@@ -11,40 +11,54 @@ module Delay_Chain(
     input iEnSample_600k,
     input signed [2:0] iFirIn,
     input iEnDelay,
-    output reg signed [2:0] oDelay1,
-    output reg signed [2:0] oDelay2,
-    output reg signed [2:0] oDelay3,
-    output reg signed [2:0] oDelay4,
-    output reg signed [2:0] oDelay5,
-    output reg signed [2:0] oDelay6,
-    output reg signed [2:0] oDelay7,
-    output reg signed [2:0] oDelay8,
-    output reg signed [2:0] oDelay9,
-    output reg signed [2:0] oDelay10,
-    output reg signed [2:0] oDelay11,
-    output reg signed [2:0] oDelay12,
-    output reg signed [2:0] oDelay13,
-    output reg signed [2:0] oDelay14,
-    output reg signed [2:0] oDelay15,
-    output reg signed [2:0] oDelay16,
-    output reg signed [2:0] oDelay17,
-    output reg signed [2:0] oDelay18,
-    output reg signed [2:0] oDelay19,
-    output reg signed [2:0] oDelay20,
-    output reg signed [2:0] oDelay21,
-    output reg signed [2:0] oDelay22,
-    output reg signed [2:0] oDelay23,
-    output reg signed [2:0] oDelay24,
-    output reg signed [2:0] oDelay25,
-    output reg signed [2:0] oDelay26,
-    output reg signed [2:0] oDelay27,
-    output reg signed [2:0] oDelay28,
-    output reg signed [2:0] oDelay29,
-    output reg signed [2:0] oDelay30,
-    output reg signed [2:0] oDelay31,
-    output reg signed [2:0] oDelay32,
-    output reg signed [2:0] oDelay33
+    output signed [15:0] wFirSum1st,
+    output signed [15:0] wFirSum2nd,
+    output signed [15:0] wFirSum3rd,
+    output signed [15:0] wFirSum4th,
+    output signed [15:0] wFirSum5th,
+    output signed [15:0] wFirSum6th,
+    output signed [15:0] wFirSum7th,
+    output signed [15:0] wFirSum8th,
+    output signed [15:0] wFirSum9th,
+    output signed [15:0] wFirSum10th,
+    output signed [15:0] wFirSum11th,
+    output signed [15:0] wFirSum12th
 );
+
+     reg signed [2:0] oDelay1;
+     reg signed [2:0] oDelay2;
+     reg signed [2:0] oDelay3;
+     reg signed [2:0] oDelay4;
+     reg signed [2:0] oDelay5;
+     reg signed [2:0] oDelay6;
+     reg signed [2:0] oDelay7;
+     reg signed [2:0] oDelay8;
+     reg signed [2:0] oDelay9;
+     reg signed [2:0] oDelay10;
+     reg signed [2:0] oDelay11;
+     reg signed [2:0] oDelay12;
+     reg signed [2:0] oDelay13;
+     reg signed [2:0] oDelay14;
+     reg signed [2:0] oDelay15;
+     reg signed [2:0] oDelay16;
+     reg signed [2:0] oDelay17;
+     reg signed [2:0] oDelay18;
+     reg signed [2:0] oDelay19;
+     reg signed [2:0] oDelay20;
+     reg signed [2:0] oDelay21;
+     reg signed [2:0] oDelay22;
+     reg signed [2:0] oDelay23;
+     reg signed [2:0] oDelay24;
+     reg signed [2:0] oDelay25;
+     reg signed [2:0] oDelay26;
+     reg signed [2:0] oDelay27;
+     reg signed [2:0] oDelay28;
+     reg signed [2:0] oDelay29;
+     reg signed [2:0] oDelay30;
+     reg signed [2:0] oDelay31;
+     reg signed [2:0] oDelay32;
+     reg signed [2:0] oDelay33;
+
 
     always @(posedge iClk_12M)
     begin
@@ -152,4 +166,58 @@ module Delay_Chain(
             oDelay33 <= oDelay33;
         end
     end
+
+    //양
+    assign wFirSum1st  = {{13{oDelay1[2]}},  oDelay1[2:0]}
+                     + {{13{oDelay33[2]}}, oDelay33[2:0]};
+
+    // oDelay[3] & oDelay[31] - 음
+    assign wFirSum2nd  = {{13{oDelay3[2]}},  oDelay3[2:0]}
+                        + {{13{oDelay31[2]}}, oDelay31[2:0]};
+
+
+    // oDelay[4] & oDelay[30] - 양
+    assign wFirSum3rd  = {{13{oDelay4[2]}},  oDelay4[2:0]}
+                        + {{13{oDelay30[2]}}, oDelay30[2:0]};
+
+
+    // oDelay[6] & oDelay[28] - 음
+    assign wFirSum4th  = {{13{oDelay6[2]}},  oDelay6[2:0]}
+                        + {{13{oDelay28[2]}}, oDelay28[2:0]};
+
+    // oDelay[7] & oDelay[27] - 양
+    assign wFirSum5th  = {{13{oDelay7[2]}},  oDelay7[2:0]}
+                        + {{13{oDelay27[2]}}, oDelay27[2:0]};
+
+
+    // oDelay[9] & oDelay[25] - 음
+    assign wFirSum6th  = {{13{oDelay9[2]}},  oDelay9[2:0]}
+                        + {{13{oDelay25[2]}}, oDelay25[2:0]};
+
+    // oDelay[10] & oDelay[24] - 양
+    assign wFirSum7th  = {{13{oDelay10[2]}}, oDelay10[2:0]}
+                        + {{13{oDelay24[2]}}, oDelay24[2:0]};
+
+
+    // oDelay[12] & oDelay[22] - 음
+    assign wFirSum8th  = {{13{oDelay12[2]}}, oDelay12[2:0]}
+                        + {{13{oDelay22[2]}}, oDelay22[2:0]};
+
+    // oDelay[13] & oDelay[21] - 양
+    assign wFirSum9th  = {{13{oDelay13[2]}}, oDelay13[2:0]}
+                        + {{13{oDelay21[2]}}, oDelay21[2:0]};
+
+
+    // oDelay[15] & oDelay[19] - 음
+    assign wFirSum10th = {{13{oDelay15[2]}}, oDelay15[2:0]}
+                        + {{13{oDelay19[2]}}, oDelay19[2:0]};
+
+    // oDelay[16] & oDelay[18] - 양
+    assign wFirSum11th = {{13{oDelay16[2]}}, oDelay16[2:0]}
+                        + {{13{oDelay18[2]}}, oDelay18[2:0]};
+
+
+    // oDelay[17] - 양
+    assign wFirSum12th = {{13{oDelay17[2]}}, oDelay17[2:0]};
+
 endmodule
